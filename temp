@@ -1,0 +1,254 @@
+//package main;
+/*
+ * Student Name: <Enter your name here>
+ * File: HW4.java
+ * -----------------------
+ * This program is used for saving image data using RAID0, 1 and 10 
+ * configuration. Discs on raid structure is simulated
+ * using single dimensional array.
+ * The program reads in an image data and converts it into 2D int array.
+ * It simulates the failure of the disc by randomly changing the
+ * contents of the disc (array). It constructs a new image
+ * out of the raid discs, saves newly constructed image data into a file
+ * and displays the original and the new image on canvas.
+ */
+import javax.print.attribute.standard.DateTimeAtCompleted;
+
+import acm.graphics.*;
+import acm.program.*;
+import acm.util.RandomGenerator;
+import acm.util.*;
+import java.io.*;
+import java.text.SimpleDateFormat;
+import java.util.*;
+
+
+
+public class hw4 extends GraphicsProgram {
+
+	
+	public void readDataFromFile(String fileName) throws FileNotFoundException {
+
+		println(fileName);
+		try {
+		Scanner  sc=new Scanner(new BufferedReader(new FileReader(fileName)));
+		
+		int s=-1;
+		while (sc.hasNextLine()) {
+			s++;
+			System.out.println(s+"   "+sc.nextInt()+"  ");
+			
+		}
+		}
+		catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
+	public int [][] createTwoDimArray() {
+	
+	int m=3;
+	int n=3;
+	int twoDm[][]= new int[m][n];
+	int i,j,k=1;
+        for(i=0;i<m;i++){
+           for(j=0;j<n;j++) {
+              twoDm[i][j]=k;
+	          k++;}
+	    }
+	return twoDm;
+	}
+	
+	
+	public void writeAnArrayIntoFile(int[][] array) throws IOException {
+		// Writer fileWriter = new FileWriter("c:\\data\\output.txt", true);  //appends to file
+		 String logFileName = new SimpleDateFormat("yyyyMMddHHmm'.txt'").format(new Date());
+
+		 logFileName = "filewriter_" + logFileName;
+		
+		try(FileWriter fileWriter = new FileWriter(logFileName,true) )
+		{
+			List<String> data= new LinkedList<String>(); ;
+			
+			
+			for (int i=0;i<array.length;i++) {
+				String line_="";
+				for (int j=0;j<array[0].length;j++) 
+					line_+=Integer.toString(array[i][j]);
+				fileWriter.write(line_+"\n");
+				
+			}
+//			    fileWriter.write("dadfgta 2\n");
+//			    fileWriter.write("dadfgta 3\n");
+//			    fileWriter.close();
+		}
+
+	}
+
+	public void readAnImageIntoAnArray(String filename) {
+		//		604 402  m n
+		
+		
+	}
+	public void run(){
+
+		String file_name="filewriter_201812111553.txt";
+		try {
+			readDataFromFile(file_name);
+		} catch (FileNotFoundException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
+		int [][] array=new int[10][10];
+		array=createTwoDimArray();
+		
+		try {
+			writeAnArrayIntoFile(array);
+			println(" press any number ");
+			readInt();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		try {
+			readDataFromFile("data_2.txt");
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		println("This program simulates the saving of an image on RAID Volumes");
+		
+		//Your code starts here
+		GImage HW=new GImage("HW.png");
+		GImage Candle=new GImage("Candle.gif");
+		
+//		logo.scale(1/2, 1/2);
+//		int[][] myA=logo.getPixelArray();
+//		
+		
+		int [][] arrayFor_HW_png=HW.getPixelArray();
+		int [][] arrayFor_Candle_gif=Candle.getPixelArray();
+		println("size of HW png :"+"  "+ HW.getHeight() +"  "+HW.getWidth());
+		
+		println("size of HW png :"+" "+ Candle.getHeight()+"  "+Candle.getWidth());
+		
+		
+		println("size of Candle gif :"+arrayFor_Candle_gif.length);
+		
+		println(" HW i j : " + arrayFor_HW_png[0][0]);
+		println(" Candle i j : " + arrayFor_Candle_gif[0][0]);
+		
+//		try {
+//			writeAnArrayIntoFile(array);
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+		
+//		println("size :"+myA.length);
+//		int s_1=0;
+//		int s_2=0;
+//		int temp=0;
+//		for (int i=0;i<400;i+=1)
+//			for (int j=0;j<400;j+=1) {
+//				s_2=myA[i][j];
+//				if (s_1!=s_2)
+//					println(i+" -"+ j +" :" +myA[i][j]);
+//				temp=s_1;
+//				s_1=s_2;
+//				s_2=temp;
+//				
+//			}
+		
+	add(HW,0,0);
+	add(Candle,HW.getWidth()+10,0);
+	
+	
+		//Your code ends here			
+	}
+	
+	/*
+	 * Create a new image using the Raid configuration 
+	 * @param 
+	 * raid : specify which raid volume to use (e.g. 0, 1, 10)
+	 */
+	public GImage createRaidImage(int raid) {
+		
+		GImage newImage = new GImage (imageNameInput);
+		
+		
+		return newImage;		
+	}
+	
+	
+	/*
+	 * Fail discs used for Raid Volumes
+	 * @param 
+	 * raid : specify the type of the raid
+	 */
+	public void failRaid(int raid) {
+		//Your code starts here
+		
+		
+		//Your code ends here
+	}
+
+	/*
+	 * Create Raid 0 volume on two discs
+	 */
+	public void createRaid0Discs(GImage image) {
+		//Your code starts here
+		
+		// Your code ends here	
+	}
+	/*
+	 * Create Raid 1 volume on two discs
+	 */
+	public void createRaid1Discs(GImage image) {
+		//Your code starts here
+	
+		// Your code ends here
+	}
+	/*
+	 * Create Raid 10 volume on four discs
+	 */
+	public void createRaid10Discs(GImage image) {
+		//Your code starts here
+		
+		// Your code ends here
+	}
+
+	/*
+	 * write pixel values of an image into a file
+	 */
+	public void writeImageFile (int[][] pixels, String raidType) {
+		
+		//Your code starts here
+		
+		// Your code ends here
+		
+	}
+	//* Create Other Helper Methods and Instance Variables *//
+	
+	//Your code starts here
+	
+	// Your code ends here
+	
+	//* DO NOT MODIFY THE BELOW CODE  *//
+	/* Private constants */
+	private static final double IMAGE_SEP = 30;
+
+	/* Instance variable */
+	private RandomGenerator rgen = RandomGenerator.getInstance();
+	private  String imageNameInput = "";
+	private int[] disc1;
+	private int[] disc2;
+	private int[] disc3;
+	private int[] disc4;
+	int failDisc = 1;
+	int imageWidth = 0;
+	int imageHeight = 0;
+}
+
